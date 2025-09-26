@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>凰十九的临时文件中转站</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>凰十九的临时文件中转站</h1>
+        
+        <div class="upload-section">
+            <div class="upload-container" id="uploadContainer">
+                <div class="upload-icon">📤</div>
+                <h3>拖放文件到这里</h3>
+                <p class="upload-text">或点击选择文件</p>
+                <button class="upload-button" onclick="document.getElementById('fileInput').click()">选择文件</button>
+                <div id="maxFileSizeInfo" class="info-text">最大: --</div>
+                <input type="file" id="fileInput" multiple onchange="handleFileSelect(event)">
+                
+                <div class="upload-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="useExpiration" class="checkbox-input">
+                        设置有效期
+                        <span class="tooltip-icon">ℹ️</span>
+                        <span class="tooltip-text">文件在有效期内可多次下载，到期自动删除</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="usePassword" class="checkbox-input">
+                        使用密码保护
+                        <span class="tooltip-icon">ℹ️</span>
+                        <span class="tooltip-text">输入服务器密码以保护您的上传文件</span>
+                    </label>
+                </div>
+
+                <div id="expirationContainer" style="display: none;">
+                    <input type="number" id="expirationInput" class="option-input" placeholder="有效期数值" min="1" value="1">
+                    <select id="expirationUnit" class="option-select">
+                        <option value="seconds">秒</option>
+                        <option value="minutes">分钟</option>
+                        <option value="hours" selected>小时</option>
+                        <option value="days">天</option>
+                    </select>
+                    <button id="setExpirationBtn" class="option-button">设置</button>
+                    <div id="expirationResult" class="success-text" style="display: none;">✓ 有效期已设置</div>
+                    <div id="maxExpirationInfo" class="info-text">💡 最大允许值: --</div>
+                </div>
+
+                <div id="passwordContainer" style="display: none;">
+                    <input type="password" id="passwordInput" class="option-input" placeholder="输入服务器密码">
+                    <div id="passwordNotice" class="info-text">⚠️ 密码必须与服务器的 PASSWORD 环境变量相同</div>
+                </div>
+            </div>
+            
+            <div class="upload-status" id="uploadStatus"></div>
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="file-list" id="fileList"></div>
+        </div>
+    </div>
+
+    <script src="upload.js"></script>
+</body>
+</html>
